@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>福井県 企業情報一覧</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
   <style>
     body {
       font-family: sans-serif;
@@ -26,6 +32,14 @@
     }
     input { width: 100%; margin-bottom: 12px; }
     select { width: 100%; margin-bottom: 20px; }
+    #map {
+      height: 420px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px #0001;
+    }
     .company {
       background: white;
       padding: 18px;
@@ -61,83 +75,113 @@
       <option value="医療">医療・福祉</option>
     </select>
 
+    <div id="map"></div>
     <p id="count"></p>
     <div id="list"></div>
   </main>
 
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
   <script>
     const companies = [
       {
         name: "jig.jp",
         industry: "IT",
         address: "福井県鯖江市",
-        info: "ソフトウェア・情報通信"
+        info: "ソフトウェア・情報通信",
+        lat: 35.9551,
+        lng: 136.1882
       },
       {
         name: "福井銀行",
         industry: "金融",
         address: "福井県福井市",
-        info: "銀行・金融サービス"
+        info: "銀行・金融サービス",
+        lat: 36.0625,
+        lng: 136.2221
       },
       {
         name: "ゲンキー",
         industry: "小売",
         address: "福井県を含む複数地域",
-        info: "ドラッグストア"
+        info: "ドラッグストア",
+        lat: 36.0643,
+        lng: 136.2179
       },
       {
         name: "福井トヨタ自動車",
         industry: "小売",
         address: "福井県福井市",
-        info: "自動車販売・サービス"
+        info: "自動車販売・サービス",
+        lat: 36.0644,
+        lng: 136.2188
       },
       {
         name: "北陸電力",
         industry: "製造",
         address: "福井県福井市",
-        info: "エネルギー・電力事業"
+        info: "エネルギー・電力事業",
+        lat: 36.0649,
+        lng: 136.2231
       },
       {
         name: "ダイハツ工業福井事業所",
         industry: "製造",
         address: "福井県あわら市",
-        info: "自動車部品・製造"
+        info: "自動車部品・製造",
+        lat: 36.2231,
+        lng: 136.2009
       },
       {
         name: "福井県立病院",
         industry: "医療",
         address: "福井県福井市",
-        info: "医療・福祉サービス"
+        info: "医療・福祉サービス",
+        lat: 36.0656,
+        lng: 136.2192
       },
       {
         name: "福井建設",
         industry: "建設",
         address: "福井県越前市",
-        info: "土木・建築工事"
+        info: "土木・建築工事",
+        lat: 35.9008,
+        lng: 136.1668
       },
       {
         name: "エルハーモニー福井",
         industry: "医療",
         address: "福井県越前市",
-        info: "介護・福祉施設"
+        info: "介護・福祉施設",
+        lat: 35.9016,
+        lng: 136.1678
       },
       {
         name: "福井観光開発",
         industry: "小売",
         address: "福井県坂井市",
-        info: "観光・宿泊・旅行"
+        info: "観光・宿泊・旅行",
+        lat: 36.1569,
+        lng: 136.1716
       },
       {
         name: "マルヨシセンター",
         industry: "小売",
         address: "福井県福井市",
-        info: "スーパーマーケット"
+        info: "スーパーマーケット",
+        lat: 36.0671,
+        lng: 136.2147
       },
       {
         name: "明光ネットワーク",
         industry: "IT",
         address: "福井県大野市",
-        info: "ITソリューション・通信"
+        info: "ITソリューション・通信",
+        lat: 35.9821,
+        lng: 136.4896
       }
     ];
 
@@ -145,6 +189,35 @@
     const industry = document.getElementById("industry");
     const list = document.getElementById("list");
     const count = document.getElementById("count");
+
+    const map = L.map("map").setView([36.065, 136.22], 10);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    function updateMap(filtered) {
+      map.eachLayer((layer) => {
+        if (layer instanceof L.Marker || layer instanceof L.CircleMarker) {
+          map.removeLayer(layer);
+        }
+      });
+
+      filtered.forEach(company => {
+        const marker = L.marker([company.lat, company.lng]).addTo(map);
+        marker.bindPopup(`
+          <strong>${company.name}</strong><br>
+          ${company.industry}<br>
+          ${company.address}
+        `);
+      });
+
+      if (filtered.length > 0) {
+        const bounds = filtered.map(company => [company.lat, company.lng]);
+        map.fitBounds(bounds, { padding: [30, 30] });
+      } else {
+        map.setView([36.065, 136.22], 10);
+      }
+    }
 
     function showCompanies() {
       const keyword = search.value.trim().toLowerCase();
@@ -157,6 +230,7 @@
 
       list.replaceChildren();
       count.textContent = `${filtered.length}社の企業が見つかりました`;
+      updateMap(filtered);
 
       filtered.forEach(company => {
         const card = document.createElement("div");
