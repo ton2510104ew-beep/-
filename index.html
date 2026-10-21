@@ -91,7 +91,6 @@
       <option value="あわら市">あわら市</option>
       <option value="坂井市">坂井市</option>
       <option value="大野市">大野市</option>
-      <option value="複数地域">複数地域</option>
     </select>
 
     <p id="count"></p>
@@ -127,8 +126,8 @@
       {
         name: "ゲンキー",
         industry: "小売",
-        region: "複数地域",
-        address: "福井県を含む複数地域",
+        region: "福井市",
+        address: "福井県福井市",
         info: "ドラッグストア",
         founded: "1968年",
         employees: "約3,000名",
@@ -402,6 +401,8 @@
       }
     ];
 
+    const fukuiCompanies = companies.filter(company => company.address.includes("福井県"));
+
     const search = document.getElementById("search");
     const industry = document.getElementById("industry");
     const region = document.getElementById("region");
@@ -413,7 +414,7 @@
       const selectedIndustry = industry.value;
       const selectedRegion = region.value;
 
-      const filtered = companies.filter(company => {
+      const filtered = fukuiCompanies.filter(company => {
         const text = [company.name, company.address, company.info, company.business, company.region].join(" ").toLowerCase();
         return text.includes(keyword)
           && (!selectedIndustry || company.industry === selectedIndustry)
