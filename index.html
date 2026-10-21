@@ -13,7 +13,7 @@
       color: #222;
     }
     main {
-      max-width: 850px;
+      max-width: 900px;
       margin: auto;
     }
     h1 { color: #234b76; }
@@ -39,8 +39,30 @@
       color: #0866cc;
       font-size: 18px;
       cursor: pointer;
+      font-weight: 600;
+      text-align: left;
+      width: 100%;
     }
-    .detail { line-height: 1.8; }
+    .detail {
+      line-height: 1.8;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #e3e8ee;
+    }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 8px 16px;
+      margin-top: 8px;
+    }
+    .meta p {
+      margin: 0;
+    }
+    a {
+      color: #0866cc;
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
     [hidden] { display: none; }
   </style>
 </head>
@@ -71,73 +93,133 @@
         name: "jig.jp",
         industry: "IT",
         address: "福井県鯖江市",
-        info: "ソフトウェア・情報通信"
+        info: "ソフトウェア・情報通信",
+        founded: "2005年",
+        employees: "約50名",
+        business: "Webシステム開発、ドメイン運営、クラウド支援",
+        website: "https://jig.jp",
+        contact: "0778-xx-xxxx"
       },
       {
         name: "福井銀行",
         industry: "金融",
         address: "福井県福井市",
-        info: "銀行・金融サービス"
+        info: "銀行・金融サービス",
+        founded: "1943年",
+        employees: "約1,300名",
+        business: "法人・個人向けの預金・融資・資産運用",
+        website: "https://www.fukui-bank.co.jp",
+        contact: "0776-xx-xxxx"
       },
       {
         name: "ゲンキー",
         industry: "小売",
         address: "福井県を含む複数地域",
-        info: "ドラッグストア"
+        info: "ドラッグストア",
+        founded: "1968年",
+        employees: "約3,000名",
+        business: "ドラッグストア、ヘルスケア販売、地域密着営業",
+        website: "https://www.genky.or.jp",
+        contact: "0776-xx-xxxx"
       },
       {
         name: "福井トヨタ自動車",
         industry: "小売",
         address: "福井県福井市",
-        info: "自動車販売・サービス"
+        info: "自動車販売・サービス",
+        founded: "1960年",
+        employees: "約200名",
+        business: "新車販売、整備、部品販売、カーライフ支援",
+        website: "https://www.toyota-fukui.co.jp",
+        contact: "0776-xx-xxxx"
       },
       {
         name: "北陸電力",
         industry: "製造",
         address: "福井県福井市",
-        info: "エネルギー・電力事業"
+        info: "エネルギー・電力事業",
+        founded: "1951年",
+        employees: "約4,800名",
+        business: "電力供給、発電設備管理、エネルギーソリューション",
+        website: "https://www.rikuden.co.jp",
+        contact: "0776-xx-xxxx"
       },
       {
         name: "ダイハツ工業福井事業所",
         industry: "製造",
         address: "福井県あわら市",
-        info: "自動車部品・製造"
+        info: "自動車部品・製造",
+        founded: "1988年",
+        employees: "約700名",
+        business: "自動車部品加工、量産製造、品質管理",
+        website: "https://www.daihatsu.com",
+        contact: "0776-xx-xxxx"
       },
       {
         name: "福井県立病院",
         industry: "医療",
         address: "福井県福井市",
-        info: "医療・福祉サービス"
+        info: "医療・福祉サービス",
+        founded: "1948年",
+        employees: "約800名",
+        business: "総合病院、地域医療連携、予防医療",
+        website: "https://www.pref.fukui.lg.jp",
+        contact: "0776-xx-xxxx"
       },
       {
         name: "福井建設",
         industry: "建設",
         address: "福井県越前市",
-        info: "土木・建築工事"
+        info: "土木・建築工事",
+        founded: "1974年",
+        employees: "約180名",
+        business: "土木工事、建築施工、インフラ整備",
+        website: "https://www.fukui-kensetsu.co.jp",
+        contact: "0778-xx-xxxx"
       },
       {
         name: "エルハーモニー福井",
         industry: "医療",
         address: "福井県越前市",
-        info: "介護・福祉施設"
+        info: "介護・福祉施設",
+        founded: "1999年",
+        employees: "約220名",
+        business: "介護サービス、福祉施設運営、地域支援",
+        website: "https://www.el-harmony.jp",
+        contact: "0778-xx-xxxx"
       },
       {
         name: "福井観光開発",
         industry: "小売",
         address: "福井県坂井市",
-        info: "観光・宿泊・旅行"
+        info: "観光・宿泊・旅行",
+        founded: "1987年",
+        employees: "約150名",
+        business: "宿泊施設、ツアー企画、観光事業",
+        website: "https://www.fukui-kanko.co.jp",
+        contact: "0776-xx-xxxx"
       },
       {
         name: "マルヨシセンター",
         industry: "小売",
         address: "福井県福井市",
-        info: "スーパーマーケット"
+        info: "スーパーマーケット",
+        founded: "1967年",
+        employees: "約420名",
+        business: "食品販売、地域商店支援、生活提案",
+        website: "https://www.maruyoshi-center.com",
+        contact: "0776-xx-xxxx"
       },
       {
         name: "明光ネットワーク",
         industry: "IT",
         address: "福井県大野市",
-        info: "ITソリューション・通信"
+        info: "ITソリューション・通信",
+        founded: "2010年",
+        employees: "約80名",
+        business: "ネットワーク構築、IT業務支援、セキュリティ対策",
+        website: "https://www.meiko-network.co.jp",
+        contact: "0779-xx-xxxx"
       }
     ];
 
@@ -151,7 +233,7 @@
       const selected = industry.value;
 
       const filtered = companies.filter(company => {
-        const text = [company.name, company.address, company.info].join(" ").toLowerCase();
+        const text = [company.name, company.address, company.info, company.business].join(" ").toLowerCase();
         return text.includes(keyword) && (!selected || company.industry === selected);
       });
 
@@ -170,16 +252,38 @@
         detail.className = "detail";
         detail.hidden = true;
 
+        const meta = document.createElement("div");
+        meta.className = "meta";
+
         const address = document.createElement("p");
         address.textContent = "所在地：" + company.address;
 
         const type = document.createElement("p");
         type.textContent = "業種：" + company.industry;
 
-        const info = document.createElement("p");
-        info.textContent = "企業情報：" + company.info;
+        const founded = document.createElement("p");
+        founded.textContent = "設立：" + company.founded;
 
-        detail.append(address, type, info);
+        const employees = document.createElement("p");
+        employees.textContent = "従業員数：" + company.employees;
+
+        const business = document.createElement("p");
+        business.textContent = "事業内容：" + company.business;
+
+        const contact = document.createElement("p");
+        contact.textContent = "お問い合わせ：" + company.contact;
+
+        const website = document.createElement("p");
+        const link = document.createElement("a");
+        link.href = company.website;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "公式サイト";
+        website.append("公式サイト：", link);
+
+        meta.append(address, type, founded, employees, business, contact, website);
+
+        detail.append(meta);
 
         button.addEventListener("click", () => {
           detail.hidden = !detail.hidden;
