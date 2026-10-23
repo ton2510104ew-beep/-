@@ -63,7 +63,8 @@ select { width: 100%; margin-bottom: 20px; }
   <p id="count"></p>
   <div id="list"></div>
 </main>
-  <script>
+
+<script>
 const companies = [
   {
     name: "jig.jp",
@@ -84,19 +85,67 @@ const companies = [
     info: "ドラッグストア"
   }
 ];
+
+const search = document.getElementById("search");
+const industry = document.getElementById("industry");
+const list = document.getElementById("list");
+const count = document.getElementById("count");
+
+function showCompanies() {
+  const keyword = search.value.trim().toLowerCase();
+  const selected = industry.value;
+
+  const filtered = companies.filter(company => {
+    const text = (
+      company.name + company.address + company.info
+    ).toLowerCase();
+
+    return text.includes(keyword) &&
+      (!selected || company.industry === selected);
+  });
+
+  list.replaceChildren();
+  count.textContent = filtered.length + "社の企業が見つかりました";
+
+  filtered.forEach(company => {
+    const card = document.createElement("div");
+    card.className = "company";
+
+    const button = document.createElement("button");
+    button.textContent = "＋ " + company.name;
+
+    const detail = document.createElement("div");
+    detail.className = "detail";
+    detail.hidden = true;
+
+    const address = document.createElement("p");
+    address.textContent = "所在地：" + company.address;
+
+    const type = document.createElement("p");
+    type.textContent = "業種：" + company.industry;
+
+    const info = document.createElement("p");
+    info.textContent = "企業情報：" + company.info;
+
+    detail.append(address, type, info);
+
+    button.addEventListener("click", () => {
+      detail.hidden = !detail.hidden;
+      button.textContent =
+        (detail.hidden ? "＋ " : "－ ") + company.name;
+    });
+
+    card.append(button, detail);
+    list.append(card);
+  });
+}
+
+search.addEventListener("input", showCompanies);
+industry.addEventListener("change", showCompanies);
+
+showCompanies();
 </script>
-<script>
-const address = document.createElement("p");
-address.textContent = "所在地：" + company.address;
-
-const type = document.createElement("p");
-type.textContent = "業種：" + company.industry;
-
-const info = document.createElement("p");
-info.textContent = "企業情報：" + company.info;
-
-detail.append(address, type, info);
-</script>
-
+</body>
+</html>
 
 
